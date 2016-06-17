@@ -16,7 +16,7 @@ this program should allow users to create a pizza and select toppings
   input: cheese
   output: pizza with cheese
 
-
+large pizza with pepperoni, duck PRICE 19.99
 
 this program should display a price based on the options selected
   input: large cheese pizza

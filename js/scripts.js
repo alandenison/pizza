@@ -5,16 +5,26 @@ function Pizza(pizzaSize, toppings) {
   this.pizzaSize = pizzaSize;
   this.toppings = toppings;
 }
+
 Pizza.prototype.finishedPizza = function() {
   var toppingsDetector = []
   for(i = 0; i < 4; i++) {
-    while (toppings[i] != "none") {
+    if (toppings[i] != "none") {
       toppingsDetector.push(toppings[i]);
       };
     };
-      return sizes[this.pizzaSize] + " pizza with " + toppingsDetector;
+      return sizes[this.pizzaSize] + " pizza with Cheese, " + toppingsDetector.join(', ');
   };
 
+Pizza.prototype.price = function() {
+  var toppingPrice = 0;
+  for (i = 0; i < 4; i++) {
+    if (toppings[i] != "none") {
+      toppingPrice = toppingPrice + 1.5
+    }
+  }
+  return (10 + (parseInt(this.pizzaSize) * 2) + toppingPrice).toFixed(2);
+}
 
 
 
@@ -27,7 +37,9 @@ $(document).ready(function() {
     var inputtedToppings = toppings.toString()
     var newPizza = new Pizza(inputtedPizzaSize, inputtedToppings);
 
-    alert(newPizza.finishedPizza());
+    $("#displayPizza").text(newPizza.finishedPizza() + " price=$" + newPizza.price());
+
+
     toppings = [];
   });
 });
