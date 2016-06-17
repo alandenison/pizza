@@ -7,6 +7,7 @@ function Pizza(pizzaSize, toppings) {
   this.toppings = toppings;
 }
 
+
 Pizza.prototype.finishedPizza = function() {
   var toppingsDetector = []
   for(i = 0; i < 4; i++) {
@@ -14,20 +15,18 @@ Pizza.prototype.finishedPizza = function() {
       toppingsDetector.push(toppings[i]);
       };
     };
-      return sizes[this.pizzaSize] + " pizza with Cheese, " + toppingsDetector.join(', ');
-  };
+    return sizes[this.pizzaSize] + " pizza with Cheese, " + toppingsDetector.join(', ');
+  }
 
 Pizza.prototype.price = function() {
   var toppingPrice = 0;
   for (i = 0; i < 4; i++) {
     if (toppings[i] != "none") {
       toppingPrice = toppingPrice + 2
-    }
-  }
+    };
+  };
   return 10 + (parseInt(this.pizzaSize) * 2) + toppingPrice;
 }
-
-
 
 $(document).ready(function() {
   $("#pizzaOptions").submit(function(event) {
