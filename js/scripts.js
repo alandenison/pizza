@@ -4,11 +4,14 @@ function Pizza(pizzaSize, toppings) {
 }
 
 var sizes = ["Small", "Medium", "Large", "Extra Large"];
+var toppings = []
 
 $(document).ready(function() {
-  event.preventDefault();
   $("#pizzaOptions").submit(function(event) {
+    event.preventDefault();
+    var toppings = []
     var inputtedPizzaSize = $("#sizeOption").val();
-    alert(inputtedPizzaSize);
+    var toppingsDetector = toppings.push($("#topping1").val(), $("#topping2").val(),$("#topping3").val(),$("#topping4").val());
+    console.log(toppings);
   });
 });
