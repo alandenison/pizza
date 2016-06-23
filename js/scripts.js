@@ -1,43 +1,35 @@
-var sizes = ["Small", "Medium", "Large", "Extra Large"];
-var toppings = []
-var total = "";
-
-function Pizza(pizzaSize, toppings) {
+function Pizza(pizzaSize, toppings, price) {
   this.pizzaSize = pizzaSize;
   this.toppings = toppings;
+  this.price = price;
 }
 
-
-Pizza.prototype.finishedPizza = function() {
+detector = function(inputtedToppings) {
   var toppingsDetector = []
   for(i = 0; i < 4; i++) {
-    if (toppings[i] != "none") {
-      toppingsDetector.push(toppings[i]);
+    if (inputtedToppings[i] != "none") {
+      toppingsDetector.push(inputtedToppings[i]);
       };
     };
-    return sizes[this.pizzaSize] + " pizza with Cheese, " + toppingsDetector.join(', ');
+    return toppingsDetector;
   }
 
-Pizza.prototype.price = function() {
-  var toppingPrice = 0;
-  for (i = 0; i < 4; i++) {
-    if (toppings[i] != "none") {
-      toppingPrice = toppingPrice + 2
-    };
-  };
-  return 10 + (parseInt(this.pizzaSize) * 2) + toppingPrice;
+Pizza.prototype.calculate = function() {
+  total = this.price + (parseInt(this.pizzaSize) * 2) + (((detector(this.toppings)).length) * 1.5);
+  return total;
 }
 
 $(document).ready(function() {
+  var total = 0;
   $("#pizzaOptions").submit(function(event) {
     event.preventDefault();
-    toppings.push($("#topping1").val(), $("#topping2").val(),$("#topping3").val(),$("#topping4").val());
+    var size = ["Small", "Medium", "Large", "Extra Large"]
     var inputtedPizzaSize = $("#sizeOption").val();
-    var inputtedToppings = toppings.toString()
-    var newPizza = new Pizza(inputtedPizzaSize, inputtedToppings);
-    $("#displayPizza").append("<li>" + newPizza.finishedPizza() + " price=$" + newPizza.price() + "</li>");
-    total = +total + newPizza.price();
-    $("#totalPrice").text("$" + total + ".00");
-    toppings = [];
+    var inputtedToppings = [$("#topping1").val(),$("#topping2").val(), $("#topping3").val(),$("#topping4").val()];
+    var price = 10;
+    var newPizza = new Pizza(inputtedPizzaSize, inputtedToppings, price);
+    $("#displayPizza").append("<li>" +size[newPizza.pizzaSize] + " pizza with cheese, " + (detector(inputtedToppings)).join(", ") + " PRICE: $" + (newPizza.calculate() + "</li>"));
+    total = total + newPizza.calculate();
+    $("#totalPrice").text("$" + total.toFixed(2));
   });
 });
